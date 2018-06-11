@@ -7,6 +7,8 @@ export default function addPerson(person) {
 }
 
 function addPersonAsync(person) {
+  console.log('add person');
+  console.log(person);
   return {
     type: ADD_PERSON,
     payload: person,

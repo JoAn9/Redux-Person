@@ -33,7 +33,16 @@ class App extends Component {
                   Most Wanted:
                   <button
                     className="btn btn-primary"
-                  >Add</button>
+                    onClick={this.props.addPerson}
+                  >
+                    Add
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={this.props.getWantedList}
+                  >
+                    Get
+                  </button>
                 </h2>
 
               {/* {this.renderUsers()} */}
@@ -49,4 +58,7 @@ class App extends Component {
 }
 
 
-export default App;
+export default connect(null, {
+  addPerson,
+  getWantedList
+})(App);
