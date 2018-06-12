@@ -5,18 +5,17 @@ export default function getWantedList() {
   return dispatch => {
     axios.get('../wanted_list.json')
       .then(res => {
-        console.log(res);
+        console.log('Wanted list ::', res.data);
         const people = res.data.map(person => {
           person.note = 'none';
           return person;
         });
-        dispatch(getUserAsync(people));
+        dispatch(getWantedListAsync(people));
       });
   }
 }
 
-function getUserAsync(people) {
-  console.log(people);
+function getWantedListAsync(people){
   return {
     type: GET_WANTED_LIST,
     payload: people

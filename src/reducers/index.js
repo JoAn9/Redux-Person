@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import PersonReducer from './reducer_person';
+import WantedPeopleReducer from './reducer_wanted_list';
 import ToastReducer from './reducer_toast';
 
 const rootReducer = combineReducers({
-  wantedList: PersonReducer,
+  wantedPeople: WantedPeopleReducer,
   toast: ToastReducer,
 });
 

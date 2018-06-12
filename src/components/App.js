@@ -11,7 +11,13 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    // this.props.getWantedList();
+    this.props.getWantedList();
+  }
+
+  renderUsers = () => {
+    return this.props.wantedPeople.map(item => {
+      <li key={item.name}>{item.name}</li>
+    })
   }
   // renderUsers() {
   //   if(this.props.wantedPeople) {
@@ -44,7 +50,7 @@ class App extends Component {
                     Get
                   </button>
                 </h2>
-
+              {this.renderUsers()}
               {/* {this.renderUsers()} */}
             </div>
             <div className="column col-md-6">
@@ -57,8 +63,13 @@ class App extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    wantedPeople: state.wantedPeople,
+  }
+}
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   addPerson,
   getWantedList
 })(App);
