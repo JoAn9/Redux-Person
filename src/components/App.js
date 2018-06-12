@@ -14,10 +14,15 @@ class App extends Component {
     this.props.getWantedList();
   }
 
-  renderUsers = () => {
-    return this.props.wantedPeople.map(item => {
-      <li key={item.name}>{item.name}</li>
-    })
+  renderUsers() {
+    if(this.props.wantedPeople) {
+      return this.props.wantedPeople.map(person => {
+        <li key={person.name}>{person.name}</li>
+      });
+    } else {
+      return <div>Loading...</div>
+    }
+
   }
   // renderUsers() {
   //   if(this.props.wantedPeople) {
@@ -63,13 +68,16 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(store) {
   return {
-    wantedPeople: state.wantedPeople,
+    wantedPeople: store.wantedPeople,
   }
 }
 
-export default connect(mapStateToProps, {
-  addPerson,
-  getWantedList
-})(App);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    getWantedList: getWantedList
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
