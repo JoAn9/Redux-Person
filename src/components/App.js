@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import addPerson from '../actions/add_person';
 import getWantedList from '../actions/get_wanted_list';
+import WantedCard from './WantedCard';
 
 class App extends Component {
   constructor(props) {
@@ -17,12 +18,11 @@ class App extends Component {
   renderUsers() {
     if(this.props.wantedPeople) {
       return this.props.wantedPeople.map(person => {
-        <li key={person.name}>{person.name}</li>
+        return <WantedCard key={person.name} person={person} />
       });
     } else {
       return <div>Loading...</div>
     }
-
   }
   // renderUsers() {
   //   if(this.props.wantedPeople) {
