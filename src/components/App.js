@@ -34,15 +34,15 @@ class App extends Component {
     }
   }
 
-  toggleModalState() {
+  toggleModalState = () => {
     if(this.state.openModal) {
       this.clearFormAndCloseModal();
     } else {
       this.setState({
-        openModal: true,
+        openModal: true
       })
     }
-  }
+   }
 
   clearFormAndCloseModal() {
     this.setState({
@@ -57,14 +57,9 @@ class App extends Component {
     })
   }
 
-  handleChange = name => event => {
-    const {state} = this.state;
-    const newState = {
-      ...state,
-      [name]: event.target.value,
-    };
+  handleNewPersonNameChange = (e) => {
     this.setState({
-      state: newState,
+      newPersonName: e.target.value
     });
   }
 
@@ -98,8 +93,9 @@ class App extends Component {
         </div>
         <AddUserModal
           state={this.state}
-          handleChange={this.handleChange}
           toggleModalState={this.toggleModalState}
+          handleNewPersonNameChange={this.handleNewPersonNameChange}
+          createPerson={() => console.log('creating! ' + this.state.newPersonName)}
         />
       </div>
     );
