@@ -4,11 +4,20 @@ import {bindActionCreators} from 'redux';
 import addPerson from '../actions/add_person';
 import getWantedList from '../actions/get_wanted_list';
 import WantedCard from './WantedCard';
+import AddUserModal from './AddUserModal';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      openModal: false,
+      newPersonName: '',
+      newPersonReason: '',
+      newPersonReward: '',
+      newPersonEyes: '',
+      newPersonNose: '',
+      newPersonMouth: '',
+      newPersonSkin: '#CE96FF'
     }
   }
   componentDidMount() {
@@ -24,15 +33,40 @@ class App extends Component {
       return <div>Loading...</div>
     }
   }
-  // renderUsers() {
-  //   if(this.props.wantedPeople) {
-  //     return this.props.wantedPeople.map(person => {
-  //       return <WantedCard key={person.name} person={person} />;
-  //     });
-  //   } else {
-  //     return '...loading...';
-  //   }
-  // }
+
+  toggleModalState() {
+    if(this.state.openModal) {
+      this.clearFormAndCloseModal();
+    } else {
+      this.setState({
+        openModal: true,
+      })
+    }
+  }
+
+  clearFormAndCloseModal() {
+    this.setState({
+      newPersonName: '',
+      newPersonReason: '',
+      newPersonReward: '',
+      newPersonEyes: 1,
+      newPersonNose: 1,
+      newPersonMouth: 1,
+      newPersonSkin: '#CE96FF',
+      openModal: false
+    })
+  }
+
+  handleChange = name => event => {
+    const {state} = this.state;
+    const newState = {
+      ...state,
+      [name]: event.target.value,
+    };
+    this.setState({
+      state: newState,
+    });
+  }
 
   render() {
     return (
@@ -44,7 +78,7 @@ class App extends Component {
                   Most Wanted:
                   <button
                     className="btn btn-primary"
-                    onClick={this.props.addPerson}
+                    onClick={this.toggleModalState}
                   >
                     Add
                   </button>
@@ -56,13 +90,17 @@ class App extends Component {
                   </button>
                 </h2>
               {this.renderUsers()}
-              {/* {this.renderUsers()} */}
             </div>
             <div className="column col-md-6">
               {/* <RewardList /> */}
             </div>
           </div>
         </div>
+        <AddUserModal
+          state={this.state}
+          handleChange={this.handleChange}
+          toggleModalState={this.toggleModalState}
+        />
       </div>
     );
   }
