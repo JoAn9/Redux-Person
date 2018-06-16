@@ -27,12 +27,30 @@ class AddUserModal extends Component {
                     type="text"
                     placeholder="Name or known alias" />
                 </div>
+                <div className="form-group">
+                  <label className="form-label">Reason for arrest:</label>
+                  <input
+                    value={this.props.state.newPersonReason}
+                    onChange={this.props.handleNewPersonReasonChange}
+                    className="form-input"
+                    type="text"
+                    placeholder="What has the perp done?" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Reward for delivery to police station:</label>
+                  <input
+                    value={this.props.state.newPersonReward}
+                    onChange={this.props.handleNewPersonRewardChange}
+                    className="form-input"
+                    type="text"
+                    placeholder="Reward" />
+                </div>
               </form>
             </div>
           </div>
           <div className="modal-footer">
             <button
-              onClick={this.props.addPerson}
+              onClick={this.props.createPerson}
               className="btn btn-primary">Save</button>
           </div>
         </div>

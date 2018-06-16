@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 // import updatePerson from '../actions/update_person';
-// import deletePerson from '../actions/delete_person';
 // import { Note } from './Note';
 
+
 class WantedCard extends Component {
+
+
+  handleDeletePerson = () => {
+    this.props.deletePerson(this.props.person);
+  }
 
   render() {
     const person = this.props.person;
@@ -15,7 +20,7 @@ class WantedCard extends Component {
         <button
           className="btn btn-clear tooltip"
           data-tooltip="Delete because person has been captured."
-        //  onClick={this.handleDeletePerson}
+          onClick={this.handleDeletePerson}
         >
         </button>
         <div className="card-header">

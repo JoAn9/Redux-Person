@@ -1,4 +1,4 @@
-import { GET_WANTED_LIST, ADD_PERSON } from '../actions/types';
+import { GET_WANTED_LIST, ADD_PERSON, DELETE_PERSON } from '../actions/types';
 
 export default function(state=[], action) {
   console.log(action.payload);
@@ -9,6 +9,9 @@ export default function(state=[], action) {
 
     case ADD_PERSON:
       return [action.payload, ...state];
+
+    case DELETE_PERSON:
+      return state.filter(person => person.name !== action.payload.name);
 
     default:
       return state;

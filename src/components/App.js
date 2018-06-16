@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import addPerson from '../actions/add_person';
 import getWantedList from '../actions/get_wanted_list';
+import deletePerson from '../actions/delete_person';
 import WantedCard from './WantedCard';
 import AddUserModal from './AddUserModal';
 
@@ -15,10 +16,6 @@ class App extends Component {
       newPersonName: '',
       newPersonReason: '',
       newPersonReward: '',
-      newPersonEyes: '',
-      newPersonNose: '',
-      newPersonMouth: '',
-      newPersonSkin: '#CE96FF'
     }
   }
   componentDidMount() {
@@ -28,7 +25,10 @@ class App extends Component {
   renderUsers() {
     if(this.props.wantedPeople) {
       return this.props.wantedPeople.map(person => {
-        return <WantedCard key={person.name} person={person} />
+        return <WantedCard
+          deletePerson={this.props.deletePerson}
+          key={person.name}
+          person={person} />
       });
     } else {
       return <div>Loading...</div>
@@ -50,10 +50,6 @@ class App extends Component {
       newPersonName: '',
       newPersonReason: '',
       newPersonReward: '',
-      newPersonEyes: 1,
-      newPersonNose: 1,
-      newPersonMouth: 1,
-      newPersonSkin: '#CE96FF',
       openModal: false
     })
   }
@@ -64,11 +60,27 @@ class App extends Component {
     });
   }
 
+  handleNewPersonReasonChange = (e) => {
+    this.setState({
+      newPersonReason: e.target.value
+    });
+  }
+
+  handleNewPersonRewardChange = (e) => {
+    this.setState({
+      newPersonReward: e.target.value
+    });
+  }
+
   handlePersonCreation = () => {
     const person = {
       name: this.state.newPersonName,
+      image: `https://api.adorable.io/avatars/face`,
+      reason: this.state.newPersonReason,
+      reward: this.state.newPersonReward
     };
     this.props.addPerson(person);
+    this.clearFormAndCloseModal();
   }
 
   render() {
@@ -103,8 +115,10 @@ class App extends Component {
           state={this.state}
           toggleModalState={this.toggleModalState}
           handleNewPersonNameChange={this.handleNewPersonNameChange}
-          addPerson={this.handlePersonCreation}
+          createPerson={this.handlePersonCreation}
           addToWantedList={this.handlePersonCreation}
+          handleNewPersonReasonChange={this.handleNewPersonReasonChange}
+          handleNewPersonRewardChange={this.handleNewPersonRewardChange}
         />
       </div>
     );
@@ -119,8 +133,9 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getWantedList: getWantedList,
-    addPerson: addPerson,
+    getWantedList,
+    addPerson,
+    deletePerson,
   }, dispatch);
 }
 
