@@ -6,6 +6,7 @@ import getWantedList from '../actions/get_wanted_list';
 import WantedCard from './WantedCard';
 import AddUserModal from './AddUserModal';
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -63,6 +64,13 @@ class App extends Component {
     });
   }
 
+  handlePersonCreation = () => {
+    const person = {
+      name: this.state.newPersonName,
+    };
+    this.props.addPerson(person);
+  }
+
   render() {
     return (
       <div className="App container">
@@ -95,7 +103,8 @@ class App extends Component {
           state={this.state}
           toggleModalState={this.toggleModalState}
           handleNewPersonNameChange={this.handleNewPersonNameChange}
-          createPerson={() => console.log('creating! ' + this.state.newPersonName)}
+          addPerson={this.handlePersonCreation}
+          addToWantedList={this.handlePersonCreation}
         />
       </div>
     );
@@ -110,7 +119,8 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getWantedList: getWantedList
+    getWantedList: getWantedList,
+    addPerson: addPerson,
   }, dispatch);
 }
 

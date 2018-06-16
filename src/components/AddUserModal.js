@@ -32,7 +32,7 @@ class AddUserModal extends Component {
           </div>
           <div className="modal-footer">
             <button
-              onClick={this.props.createPerson}
+              onClick={this.props.addPerson}
               className="btn btn-primary">Save</button>
           </div>
         </div>
