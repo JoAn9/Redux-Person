@@ -4,8 +4,10 @@ import {bindActionCreators} from 'redux';
 import addPerson from '../actions/add_person';
 import getWantedList from '../actions/get_wanted_list';
 import deletePerson from '../actions/delete_person';
+import clearToast from '../actions/clear_toast';
 import WantedCard from './WantedCard';
 import AddUserModal from './AddUserModal';
+import Toast from './Toast';
 
 
 class App extends Component {
@@ -22,7 +24,7 @@ class App extends Component {
     this.props.getWantedList();
   }
 
-  renderUsers() {
+  renderUsers = () => {
     if(this.props.wantedPeople) {
       return this.props.wantedPeople.map(person => {
         return <WantedCard
@@ -83,9 +85,19 @@ class App extends Component {
     this.clearFormAndCloseModal();
   }
 
+  handleClearToast = () => {
+    this.props.clearToast();
+  }
+
   render() {
+    console.log(this.props.toast);
     return (
       <div className="App container">
+        {this.props.toast
+        ? <Toast
+          dismiss={this.handleClearToast}
+          message={this.props.toast} />
+        : null}
         <div className="card-container">
           <div className="columns">
             <div className="column col-md-6">
@@ -128,6 +140,7 @@ class App extends Component {
 function mapStateToProps(store) {
   return {
     wantedPeople: store.wantedPeople,
+    toast: store.toast,
   }
 }
 
@@ -136,6 +149,7 @@ function mapDispatchToProps(dispatch) {
     getWantedList,
     addPerson,
     deletePerson,
+    clearToast,
   }, dispatch);
 }
 
