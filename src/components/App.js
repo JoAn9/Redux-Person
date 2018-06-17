@@ -124,7 +124,7 @@ class App extends Component {
           </div>
         </div>
         <AddUserModal
-          state={this.state}
+          newPerson={this.state}
           toggleModalState={this.toggleModalState}
           handleNewPersonNameChange={this.handleNewPersonNameChange}
           createPerson={this.handlePersonCreation}

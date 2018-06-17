@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class AddUserModal extends Component {
   render() {
     return (
-      <div className={`modal ${this.props.state.openModal ? 'active' : null}`}>
+      <div className={`modal ${this.props.newPerson.openModal ? 'active' : null}`}>
         <div className="modal-overlay"></div>
         <div className="modal-container">
           <div className="modal-header">
@@ -21,7 +21,7 @@ class AddUserModal extends Component {
                 <div className="form-group">
                   <label className="form-label">Name:</label>
                   <input
-                    value={this.props.state.newPersonName}
+                    value={this.props.newPerson.newPersonName}
                     onChange={this.props.handleNewPersonNameChange}
                     className="form-input"
                     type="text"
@@ -30,7 +30,7 @@ class AddUserModal extends Component {
                 <div className="form-group">
                   <label className="form-label">Reason for arrest:</label>
                   <input
-                    value={this.props.state.newPersonReason}
+                    value={this.props.newPerson.newPersonReason}
                     onChange={this.props.handleNewPersonReasonChange}
                     className="form-input"
                     type="text"
@@ -39,7 +39,7 @@ class AddUserModal extends Component {
                 <div className="form-group">
                   <label className="form-label">Reward for delivery to police station:</label>
                   <input
-                    value={this.props.state.newPersonReward}
+                    value={this.props.newPerson.newPersonReward}
                     onChange={this.props.handleNewPersonRewardChange}
                     className="form-input"
                     type="text"
